@@ -34,4 +34,4 @@ abdominals = [
 
 glutes = ['squats', 'deadlifts']
 
-print('Hello world!')
+
