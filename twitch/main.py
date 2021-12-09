@@ -1,22 +1,16 @@
 import numpy as np
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 
-# WHAT ARE THE MOST POPULAR GAMES BEING WATCHED WITHIN LAST 3 MONTHS??
-# (HOPEFULLY THE ANSWER WILL RESULT IN A LARGER AUDIENCE...)
-
 raw = pd.read_csv('mw_90.csv')
-print('File read successfully...')
+raw.drop(['Unnamed: 0', 'Unnamed: 15', 'Unnamed: 1'], axis=1, inplace=True)
+raw.rename(columns={'Game': 'title'}, inplace=True)
+raw.drop([0, 1, 5, 6, 8, 9, 11, 12, 13], axis=0, inplace=True)
 
-print(raw.columns.values)
+top10 = raw.loc[:, ['title', 'Watch time', 'Average viewers', 'Views gained', 'Followers gained']].head(10)
 
-raw.drop(['Unnamed: 0', 'Unnamed: 15'], axis=1, inplace=True)
-raw.rename(columns={'Unnamed: 1': 'ID'}, inplace=True)
+top10.plot.barh(x='title', y='Watch time')
+plt.show()
 
-new = raw.loc[:, ['Game', 'Watch time', 'Average viewers', 'Views gained', 'Followers gained']]
-new.set_index('Game', inplace=True)
-new.drop(['Just Chatting', 'Minecraft', 'Apex Legends', 'Fortnite', 'New World'], axis=0, inplace=True)
+top10.to_csv('top10_90.csv')
 
-new.head(10).to_csv('top10_90.csv')
-print('New created successfully...')
