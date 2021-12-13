@@ -9,13 +9,15 @@ data = df.loc[:, ['Age', 'Sex', 'RestingBP', 'Cholesterol', 'HeartDisease']]
 #   PREPROCESSING
 info = df.describe()
 print(info, '\n')
+
 min_age = info.loc['min', 'Age']
 max_age = info.loc['max', 'Age']
-
-print(f'Ages range from {min_age} to {max_age}. \n')
-
 missing_vals = data[data['Cholesterol'] == 0]
-print(missing_vals.index.values)
 
-for missing_val in missing_vals:
-    data.drop()
+for missing_val in missing_vals.index.values:
+    data.drop(missing_val, axis=0, inplace=True)
+
+count = data.describe().loc['count', 'Age']
+
+print(f'There are {count} rows.')
+print(f'Ages range from {min_age} to {max_age}. \n')
