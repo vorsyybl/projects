@@ -33,4 +33,5 @@ print(f'Ages range from {min_age} to {max_age}. \n')
 #   MINING PRINT CORRELATION ANALYSIS HERE
 print(data.corr())
 #   ANALYSIS PERFORM UNIVARIANT, COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
-
+print(data.head())
+print(data['Age'].value_counts())
