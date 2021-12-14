@@ -35,6 +35,10 @@ gender = [sex_counts.index.values[0], sex_counts.index.values[1]]
 plt.bar(gender, counts)
 plt.show()
 
+plt.hist(x=data['Age'], bins=10)
+plt.show()
+
 #   MINING PRINT CORRELATION ANALYSIS HERE
 # print(data.corr())
 #   ANALYSIS PERFORM UNIVARIANT, COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
+
