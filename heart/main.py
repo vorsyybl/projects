@@ -17,9 +17,9 @@ info_rows = ['count', 'min', 'max']
 print(info)
 print(info.loc[info_rows, :], '\n')
 
-missing_vals = data[data['Cholesterol'] == 0]
+empty_vals = data[data['Cholesterol'] == 0]
 
-for missing_val in missing_vals.index.values:
+for missing_val in empty_vals.index.values:
     data.drop(missing_val, axis=0, inplace=True)
 
 info = data.describe()
