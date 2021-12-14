@@ -20,13 +20,18 @@ empty_vals = data[data['Cholesterol'] == 0]
 for missing_val in empty_vals.index.values:
     data.drop(missing_val, axis=0, inplace=True)
 
+#   EDA
 info = data.describe()
 count = data.shape[0]
-
-#   EDA
 sex_counts = data['Sex'].value_counts()
 counts = [sex_counts[0], sex_counts[1]]
 gender = [sex_counts.index.values[0], sex_counts.index.values[1]]
+
+ax = plt.axes()
+ax.boxplot([data['RestingBP'], data['Cholesterol']], labels=['RestingBP', 'Cholesterol'])
+ax.set_facecolor('grey')
+ax.set_ylabel('??????????????')
+plt.show()
 
 print(f'There are {count} participants, {counts[0]} Male, {counts[1]} female.')
 time.sleep(5)
@@ -54,8 +59,7 @@ plt.show(block=False)
 plt.pause(8)
 plt.close()
 
-
 #   MINING LOOK FOR RELATIONSHIPS
 corrs = data.corr()
-print(corrs)
-#   ANALYSIS PERFORM UNIVARIANT, COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
+
+#  COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
