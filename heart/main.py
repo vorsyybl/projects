@@ -14,8 +14,6 @@ data = df.loc[:, ['Age', 'Sex', 'RestingBP', 'Cholesterol', 'HeartDisease']]
 #   PREPROCESSING
 info = data.describe()
 info_rows = ['count', 'min', 'max']
-print(info)
-print(info.loc[info_rows, :], '\n')
 
 empty_vals = data[data['Cholesterol'] == 0]
 
@@ -23,22 +21,41 @@ for missing_val in empty_vals.index.values:
     data.drop(missing_val, axis=0, inplace=True)
 
 info = data.describe()
-count = data.describe().loc['count', 'Age']
-print(info.loc[info_rows, :], '\n')
+count = data.shape[0]
 
 #   EDA
-print(f'There are {count} participants.')
 sex_counts = data['Sex'].value_counts()
 counts = [sex_counts[0], sex_counts[1]]
 gender = [sex_counts.index.values[0], sex_counts.index.values[1]]
 
-plt.bar(gender, counts)
-plt.show()
+print(f'There are {count} participants, {counts[0]} Male, {counts[1]} female.')
+time.sleep(5)
 
-plt.hist(x=data['Age'], bins=10)
-plt.show()
+ax = plt.axes()
+ax.set_facecolor('grey')
+ax.bar(gender, counts, color='orange', edgecolor='black', linewidth=3)
+ax.set_title('Gender Distribution')
+ax.set_xlabel('GENDER')
+ax.set_ylabel('TOTAL')
+plt.show(block=False)
+plt.pause(8)
+plt.close()
 
-#   MINING PRINT CORRELATION ANALYSIS HERE
-# print(data.corr())
+print('Participants are mostly between 50 and 60 years old.')
+time.sleep(5)
+
+ax = plt.axes()
+ax.set_facecolor('grey')
+ax.hist(x=data['Age'], bins=10, color='orange', edgecolor='black', linewidth=3)
+ax.set_title('Age Distribution')
+ax.set_xlabel('AGE')
+ax.set_ylabel('TOTAL')
+plt.show(block=False)
+plt.pause(8)
+plt.close()
+
+
+#   MINING LOOK FOR RELATIONSHIPS
+corrs = data.corr()
+print(corrs)
 #   ANALYSIS PERFORM UNIVARIANT, COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
-
