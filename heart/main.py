@@ -5,6 +5,7 @@ from sklearn.compose import ColumnTransformer as ct
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder as le
 import matplotlib.pyplot as plt
+import numpy as np
 
 #   COLLECTION
 df = pd.read_csv('heart.csv')
@@ -16,8 +17,6 @@ info_rows = ['count', 'min', 'max']
 print(info)
 print(info.loc[info_rows, :], '\n')
 
-min_age = info.loc['min', 'Age']
-max_age = info.loc['max', 'Age']
 missing_vals = data[data['Cholesterol'] == 0]
 
 for missing_val in missing_vals.index.values:
@@ -27,11 +26,15 @@ info = data.describe()
 count = data.describe().loc['count', 'Age']
 print(info.loc[info_rows, :], '\n')
 
+#   EDA
 print(f'There are {count} participants.')
-print(f'Ages range from {min_age} to {max_age}. \n')
+sex_counts = data['Sex'].value_counts()
+counts = [sex_counts[0], sex_counts[1]]
+gender = [sex_counts.index.values[0], sex_counts.index.values[1]]
+
+plt.bar(gender, counts)
+plt.show()
 
 #   MINING PRINT CORRELATION ANALYSIS HERE
-print(data.corr())
+# print(data.corr())
 #   ANALYSIS PERFORM UNIVARIANT, COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
-print(data.head())
-print(data['Age'].value_counts())
