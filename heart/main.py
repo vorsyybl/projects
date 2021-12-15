@@ -23,7 +23,7 @@ for row in rbp_out:
 for row in chol_out:
     try:
         data.drop(row, axis=0, inplace=True)
-    except:
+    except KeyError:
         print(f'{row} already removed....')
         time.sleep(1)
         continue
