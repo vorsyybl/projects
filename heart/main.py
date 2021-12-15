@@ -7,18 +7,10 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('heart.csv')
 data = df.loc[:, ['Age', 'Sex', 'RestingBP', 'Cholesterol', 'HeartDisease']]
 
-#   PREPROCESSING
+#   PREPROCESSING EDA
 info = data.describe()
 info_rows = ['count', 'min', 'max']
-
-empty_vals = data[data['Cholesterol'] == 0]
-
-for missing_val in empty_vals.index.values:
-    data.drop(missing_val, axis=0, inplace=True)
-
-#   EDA
-info = data.describe()
-count = data.shape[0]
+num_rows = data.shape[0]
 sex_counts = data['Sex'].value_counts()
 counts = [sex_counts[0], sex_counts[1]]
 gender = [sex_counts.index.values[0], sex_counts.index.values[1]]
@@ -36,7 +28,7 @@ for row in chol_out:
         time.sleep(1)
         continue
 
-print(f'There are {count} participants, {counts[0]} Male, {counts[1]} female.')
+print(f'There are {num_rows} participants, {counts[0]} Male, {counts[1]} female.')
 time.sleep(5)
 
 ax = plt.axes()
@@ -74,4 +66,4 @@ print(data.shape)
 print(data.describe())
 print(corrs)
 
-#  
+#
