@@ -11,22 +11,24 @@ data = df.loc[:, ['Age', 'Sex', 'RestingBP', 'Cholesterol', 'HeartDisease']]
 info = data.describe()
 info_rows = ['count', 'min', 'max']
 num_rows = data.shape[0]
+
+#   LOCATE AND REMOVE OUTLIERS
+ax = plt.axes()
+ax.boxplot([data['RestingBP'], data['Cholesterol']], labels=['RestingBP', 'Cholesterol'])
+ax.set_facecolor('grey')
+ax.set_ylabel('VALUE')
+plt.show()
+
+rbp_out = data[(data['RestingBP'] > 170) | (data['RestingBP'] < 90)].index.values
+chol_out = data[(data['Cholesterol'] > 408) | (data['Cholesterol'] < 85)].index.values
+outliers = (set(rbp_out).union(set(chol_out)))
+
+for row in outliers:
+    data.drop(row, axis=0, inplace=True)
+num_rows = data.shape[0]
 sex_counts = data['Sex'].value_counts()
 counts = [sex_counts[0], sex_counts[1]]
 gender = [sex_counts.index.values[0], sex_counts.index.values[1]]
-
-rbp_out = data[(data['RestingBP'] > 170) | (data['RestingBP'] < 90)].index.values
-chol_out = data['Cholesterol'][(data['Cholesterol'] > 408) | (data['Cholesterol'] < 85)].index.values
-
-for row in rbp_out:
-    data.drop(row, axis=0, inplace=True)
-for row in chol_out:
-    try:
-        data.drop(row, axis=0, inplace=True)
-    except KeyError:
-        print(f'{row} already removed....')
-        time.sleep(1)
-        continue
 
 print(f'There are {num_rows} participants, {counts[0]} Male, {counts[1]} female.')
 time.sleep(5)
@@ -54,16 +56,8 @@ plt.show(block=False)
 plt.pause(8)
 plt.close()
 
-ax = plt.axes()
-ax.boxplot([data['RestingBP'], data['Cholesterol']], labels=['RestingBP', 'Cholesterol'])
-ax.set_facecolor('grey')
-ax.set_ylabel('RestingBP')
-plt.show()
-
 #   MINING LOOK FOR RELATIONSHIPS COVARIANT, AND MULTIVARIANT UP TO MULTI REGRESSION
 corrs = data.corr()
-print(data.shape)
-print(data.describe())
 print(corrs)
 
 #
