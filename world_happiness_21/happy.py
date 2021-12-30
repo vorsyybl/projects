@@ -4,7 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 #   figure object
-ax = plt.axes()
+ax_bar = plt.axes()
 
 #   collect
 df = pd.read_csv('world-happiness-report-2021.csv')
@@ -22,7 +22,12 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0, test_s
 
 #   linear reg - social support predicting life expectancy score
 reg = LinearRegression()
-reg.fit(x, y)
+reg.fit(x_train, y_train)
+
+ax_scatter = plt.axes()
+ax_scatter.scatter(x_test, y_test, color='green')
+ax_scatter.plot(x_test, reg.predict(x_test), color='black')
+plt.show()
 
 #   happiest countries according to ladder score
 top_ladder = df[columns].sort_values(by='Ladder score', ascending=False).head(20)
@@ -31,9 +36,9 @@ countries_and_score = top_ladder.loc[:, ['Country name', 'Ladder score']]
 x_bar = countries_and_score.iloc[:, 0].values
 y_bar = countries_and_score.iloc[:, 1].values
 
-ax.barh(x_bar, y_bar)
-ax.set_xlim(6.8, 7.9)
-ax.set_xlabel('Ladder Score')
-ax.set_ylabel('Country')
-plt.show()
-
+# ax_bar.barh(x_bar, y_bar)
+# ax_bar.set_xlim(6.8, 7.9)
+# ax_bar.set_xlabel('Ladder Score')
+# ax_bar.set_ylabel('Country')
+# plt.show()
+#
