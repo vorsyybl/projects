@@ -15,10 +15,13 @@ countries_and_score = top_ladder.loc[:, ['Country name', 'Ladder score']]
 x_bar = countries_and_score.iloc[:, 0].values
 y_bar = countries_and_score.iloc[:, 1].values
 
+print(f'Rows:{top_ladder.shape[0]} | Columns: {top_ladder.shape[1]}')
+print(top_ladder.describe())
+print(top_ladder.info)
+
 ax.barh(x_bar, y_bar)
 ax.set_xlim(6.8, 7.9)
 ax.set_xlabel('Ladder Score')
 ax.set_ylabel('Country')
-plt.figure(figsize=(10, 10))
 plt.show()
 
