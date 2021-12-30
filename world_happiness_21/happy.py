@@ -19,14 +19,13 @@ x = data.iloc[:, 3:4].values
 y = data.iloc[:, 2:3].values
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0, test_size=.8)
-
 #   linear reg - social support predicting life expectancy score
 reg = LinearRegression()
 reg.fit(x_train, y_train)
 
 ax_scatter = plt.axes()
 ax_scatter.scatter(x_test, y_test, color='green')
-ax_scatter.plot(x_test, reg.predict(x_test), color='black')
+ax_scatter.plot(x_test, reg.predict(x_test), color='red')
 plt.show()
 
 #   happiest countries according to ladder score
