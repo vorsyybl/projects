@@ -28,9 +28,21 @@ y_pred = reg.predict(x)
 ax = plt.axes()
 ax.scatter(x, y, color='red')
 ax.plot(x, y_pred, color='yellow')
+ax.set_title('Original Data: Social Support to Predict Life Expectancy')
 ax.set_xlabel('Social Support Score')
 ax.set_ylabel('Life Expectancy Score')
 ax.set_facecolor('teal')
+plt.show()
+t.sleep(3)
+
+#   figure object 2
+ax1 = plt.axes()
+ax1.scatter(x_test, y_test, color='red')
+ax1.plot(x_test, reg.predict(x_test), color='yellow')
+ax.set_title('Test Data: Social Support to Predict Life Expectancy')
+ax1.set_xlabel('Social Support Score')
+ax1.set_ylabel('Life Expectancy Score')
+ax1.set_facecolor('teal')
 plt.show()
 t.sleep(3)
 
@@ -41,11 +53,12 @@ countries_and_score = top_ladder.loc[:, ['Country name', 'Ladder score']]
 x_bar = countries_and_score.iloc[:, 0].values
 y_bar = countries_and_score.iloc[:, 1].values
 
-ax = plt.axes()
-ax.barh(x_bar, y_bar, color='yellow')
-ax.set_xlim(6.8, 7.9)
-ax.set_xlabel('Ladder Score')
-ax.set_ylabel('Country')
-ax.set_facecolor('green')
+ax3 = plt.axes()
+ax3.barh(x_bar, y_bar, color='yellow')
+ax3.set_xlim(6.8, 7.9)
+ax3.set_title('Top 20 Happiest Countries as a Function of Ladder Score')
+ax3.set_xlabel('Ladder Score')
+ax3.set_ylabel('Country')
+ax3.set_facecolor('green')
 plt.show()
 
