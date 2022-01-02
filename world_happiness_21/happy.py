@@ -4,9 +4,6 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import time as t
 
-#   figure object
-ax_bar = plt.axes()
-
 #   collect
 df = pd.read_csv('world-happiness-report-2021.csv')
 columns = ['Country name', 'Ladder score', 'Social support', 'Healthy life expectancy', 'Freedom to make life choices',
@@ -27,10 +24,13 @@ print(f'x min: {x.min()} \n x max: {x.max()} \n y min: {y.min()} \n y max: {y.ma
 reg.fit(x, y)
 y_pred = reg.predict(x)
 
-plt.scatter(x, y, color='blue')
-plt.plot(x, y_pred, color='red')
-plt.xlabel('Social Support Score')
-plt.ylabel('Life Expectancy Score')
+#   figure object
+ax = plt.axes()
+ax.scatter(x, y, color='red')
+ax.plot(x, y_pred, color='yellow')
+ax.set_xlabel('Social Support Score')
+ax.set_ylabel('Life Expectancy Score')
+ax.set_facecolor('teal')
 plt.show()
 t.sleep(3)
 
@@ -41,10 +41,11 @@ countries_and_score = top_ladder.loc[:, ['Country name', 'Ladder score']]
 x_bar = countries_and_score.iloc[:, 0].values
 y_bar = countries_and_score.iloc[:, 1].values
 
-# ax_bar.barh(x_bar, y_bar, color='yellow')
-# ax_bar.set_xlim(6.8, 7.9)
-# ax_bar.set_xlabel('Ladder Score')
-# ax_bar.set_ylabel('Country')
-# ax_bar.set_facecolor('green')
-# plt.show()
+ax = plt.axes()
+ax.barh(x_bar, y_bar, color='yellow')
+ax.set_xlim(6.8, 7.9)
+ax.set_xlabel('Ladder Score')
+ax.set_ylabel('Country')
+ax.set_facecolor('green')
+plt.show()
 
