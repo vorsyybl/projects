@@ -43,6 +43,8 @@ ax1.set_xlabel('Social Support Score')
 ax1.set_ylabel('Life Expectancy Score')
 ax1.set_facecolor('teal')
 plt.show()
+score = r2_score(y_test, reg.predict(x_test))
+print(f'R^2 Linear Regression = {round(score, 2)}')
 
 #   do multi regression all x's predicting ladder score, measure goodness of fit, accuracy score
 x_multi = data.iloc[:, 1:-1].values
@@ -53,8 +55,8 @@ reg_multi = LinearRegression()
 reg_multi.fit(x_multi, y_multi)
 y_multi_pred = reg_multi.predict(x_multi_test)
 result = np.concatenate((y_multi_pred.reshape(len(y_multi_pred), 1), y_multi_test.reshape(len(y_multi_test), 1)), 1)
-score = r2_score(y_multi_test, y_multi_pred)
-print(f'R^2 Multi Linear Regression = {round(score, 2)}')
+score_multi = r2_score(y_multi_test, y_multi_pred)
+print(f'R^2 Multi Linear Regression = {round(score_multi, 2)}')
 
 #   happiest countries according to ladder score
 top_ladder = df[columns].sort_values(by='Ladder score', ascending=False).head(20)
@@ -72,4 +74,3 @@ ax3.set_xlabel('Ladder Score')
 ax3.set_ylabel('Country')
 ax3.set_facecolor('green')
 plt.show()
-
