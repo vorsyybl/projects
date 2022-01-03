@@ -56,7 +56,6 @@ result = np.concatenate((y_multi_pred.reshape(len(y_multi_pred), 1), y_multi_tes
 score = r2_score(y_multi_test, y_multi_pred)
 print(f'R^2 Multi Linear Regression = {round(score, 2)}')
 
-
 #   happiest countries according to ladder score
 top_ladder = df[columns].sort_values(by='Ladder score', ascending=False).head(20)
 
