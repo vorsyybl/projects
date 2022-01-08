@@ -1,4 +1,9 @@
-# VERSION 1.2
+# VERSION 1.1
+all_nuts = (
+        'calories', 'protein', 'carbs', 'fiber', 'fat', 'cholesterol', 'calcium', 'iron', 'magnesium', 'potassium',
+        'sodium', 'zinc', 'vitamin a', 'thiamine', 'vitamin e', 'riboflavin', 'niacin', 'vitamin b6', 'folate',
+        'vitamin c', 'vitamin b12', 'selenium', 'sugar', 'vitamin d')
+
 daily_doses = {
     'fiber': (38, 'grams'),
     'carbs': (500, 'grams'),
