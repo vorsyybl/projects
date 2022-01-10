@@ -8,12 +8,17 @@ def selected_item(box):
 
 
 #   Creates a new table within the main database using the current datetime.
-def create():
+def create(meal_list, table_name):
     #   Check if one has already been created for that day.
     pass
+    #   Connect to main db. Create a new table using datetime as the table name.
+    conn = sql.connect('main.db')
+    c = conn.cursor()
+    c.execute(f'create table {table_name} (calories int, protein int, carbs int, fiber int, fat int, cholesterol int, calcium int, iron int, magnesium int, sodium int, zinc int, vitamin a int, thiamine int, vitamin e int, riboflavin int, niacin int, vitamin b6 int, vitamin c int, vitamin b12 int, selenium int, sugar int, vitamin d int)')
+    #   Populate the new table
 
 
-def add_item(new_list, items_list, box, window):
+def add_item(new_list, items_list, box, window, table_name):
     new_list.append(items_list[selected_item(box)])
     #   Create the menu frame.
     choice_frame = tk.LabelFrame(window, text='Add meals...')
@@ -27,7 +32,7 @@ def add_item(new_list, items_list, box, window):
     for new_item in new_list:
         new_box.insert(tk.END, new_item)
 
-    create_button = tk.Button(text='CREATE', command=lambda: create())
+    create_button = tk.Button(text='CREATE', command=lambda: create(new_list, table_name))
     create_button.grid(row=2, column=1)
 
 
@@ -36,10 +41,10 @@ def reset(new_items):
     print('Items reset, cleared successfully')
 
 
-def step_two(choice, window, menu, new_items):
+def step_two(choice, window, menu, new_items, table_name):
     if choice == 'Create?':
         #   Create a new table.
-        create()
+        create(new_items, table_name)
 
         #   Create the menu frame.
         choice_frame = tk.LabelFrame(window, text='Add meals...')
@@ -73,6 +78,3 @@ def update():
     pass
 
 
-#   Confirmation alert.
-def new_win():
-    pass
