@@ -3,22 +3,22 @@ import sqlite3 as sql
 import fns
 import tkinter as tk
 
-#   Storage.
-nutrients = [nutrient for nutrient in food.all_nuts]
-meals = [meal for meal in food.foods]
-
 #   Root tk window.
 root_main = tk.Tk()
 root_main.geometry('800x800')
 root_main.title('Food Tracker')
 
-#   Skeleton
+#   Data/storage.
+nutrients = [nutrient for nutrient in food.all_nuts]
+meals = [meal for meal in food.foods]
+
+#   Skeleton configuration.
 # root_main.rowconfigure(0)
 
 #   Step one.
 options = ('Create?', 'Update?')
-options_frame = tk.LabelFrame(root_main, text='MENU')
-options_frame.grid(row=0)
+options_frame = tk.LabelFrame(root_main, text='What would you like to do?')
+options_frame.grid(row=0, column=0)
 choice = tk.StringVar()
 choice.set('Create?')
 
