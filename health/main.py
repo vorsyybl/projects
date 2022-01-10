@@ -2,6 +2,7 @@ import food
 import sqlite3 as sql
 import fns
 import tkinter as tk
+import datetime as dt
 
 #   Root tk window.
 root_main = tk.Tk()
@@ -13,6 +14,7 @@ options = ('Create?', 'Update?', 'View?')
 nutrients = [nutrient for nutrient in food.all_nuts]
 menu = [meal for meal in food.foods]
 new_items = []
+new_table_name = dt.datetime.today().strftime("%m/%d/%Y")
 
 #   Skeleton configuration.
 # root_main.rowconfigure(0)
@@ -31,12 +33,10 @@ view_button = tk.Radiobutton(options_frame, text=options[2], value=options[2], v
 view_button.grid(row=2, column=0)
 
 #   Step Two.
-choice_set_button = tk.Button(root_main, text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, menu, new_items))
+choice_set_button = tk.Button(root_main, text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, menu, new_items, new_table_name))
 choice_set_button.grid(row=0, column=1)
 
-#   Connect to db, grab a cursor.
-conn = sql.connect('main.db')
-c = conn.cursor()
+
 
 # c.execute(f'insert into days_doses values ({calories}, {protein}, {carbs}, {fiber}, {fat}, {cholesterol}, {calcium}, {iron}, {magnesium}, {potassium}, {sodium}, {zinc}, {vitamin_a}, {thiamine}, {vitamin_e}, {riboflavin}, {niacin}, {vitamin_b6}, {folate}, {vitamin_c}, {vitamin_b12}, {selenium}, {sugar}, {vitamin_d})')
 # conn.commit()
