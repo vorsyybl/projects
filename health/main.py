@@ -17,7 +17,7 @@ root_main.title('Food Tracker')
 
 #   Step one.
 options = ('Create?', 'Update?')
-options_frame = tk.LabelFrame(root_main, text='What would you like to do?')
+options_frame = tk.LabelFrame(root_main, text='MENU')
 options_frame.grid(row=0)
 choice = tk.StringVar()
 choice.set('Create?')
@@ -27,7 +27,7 @@ create_button.grid(row=0, column=0)
 update_button = tk.Radiobutton(options_frame, text=options[1], value=options[1], variable=choice)
 update_button.grid(row=1, column=0)
 
-choice_set = tk.Button(text='Continue...', command=fns.step_two(choice.get(), root_main))
+choice_set = tk.Button(text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, meals))
 choice_set.grid(row=0, column=1)
 
 #   Connect to db, grab a cursor.
