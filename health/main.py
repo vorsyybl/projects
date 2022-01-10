@@ -5,18 +5,19 @@ import tkinter as tk
 
 #   Root tk window.
 root_main = tk.Tk()
-root_main.geometry('800x800')
+root_main.geometry('420x800')
 root_main.title('Food Tracker')
 
 #   Data/storage.
+options = ('Create?', 'Update?', 'View?')
 nutrients = [nutrient for nutrient in food.all_nuts]
-meals = [meal for meal in food.foods]
+menu = [meal for meal in food.foods]
+new_items = []
 
 #   Skeleton configuration.
 # root_main.rowconfigure(0)
 
-#   Step one.
-options = ('Create?', 'Update?')
+#   Step One.
 options_frame = tk.LabelFrame(root_main, text='What would you like to do?')
 options_frame.grid(row=0, column=0)
 choice = tk.StringVar()
@@ -26,9 +27,12 @@ create_button = tk.Radiobutton(options_frame, text=options[0], value=options[0],
 create_button.grid(row=0, column=0)
 update_button = tk.Radiobutton(options_frame, text=options[1], value=options[1], variable=choice)
 update_button.grid(row=1, column=0)
+view_button = tk.Radiobutton(options_frame, text=options[2], value=options[2], variable=choice)
+view_button.grid(row=2, column=0)
 
-choice_set = tk.Button(text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, meals))
-choice_set.grid(row=0, column=1)
+#   Step Two.
+choice_set_button = tk.Button(root_main, text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, menu, new_items))
+choice_set_button.grid(row=0, column=1)
 
 #   Connect to db, grab a cursor.
 conn = sql.connect('main.db')
@@ -41,5 +45,3 @@ c = conn.cursor()
 # conn.commit()
 
 root_main.mainloop()
-
-print(choice.get())
