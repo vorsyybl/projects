@@ -14,7 +14,7 @@ options = ('Create?', 'Update?', 'View?')
 nutrients = [nutrient for nutrient in food.all_nuts]
 menu = [meal for meal in food.foods]
 new_items = []
-new_table_name = dt.datetime.today().strftime("%m/%d/%Y")
+db = 'main.db'
 
 #   Skeleton configuration.
 # root_main.rowconfigure(0)
@@ -33,7 +33,7 @@ view_button = tk.Radiobutton(options_frame, text=options[2], value=options[2], v
 view_button.grid(row=2, column=0)
 
 #   Step Two.
-choice_set_button = tk.Button(root_main, text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, menu, new_items, new_table_name))
+choice_set_button = tk.Button(root_main, text='Continue...', command=lambda: fns.step_two(choice.get(), root_main, menu, new_items, db))
 choice_set_button.grid(row=0, column=1)
 
 
