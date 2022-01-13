@@ -14,12 +14,37 @@ def insert_data(db, data):
     c = conn.cursor()
 
     counts = pd.value_counts(data)
-    for key in data:
-        count = counts[key]
-        for nutrient in food.all_nuts:
-            data_to_add = food.foods[key][nutrient * count]
-            c.execute(f'insert into test1 values ({data_to_add})')
+    unique_keys = set(data)
+    print(unique_keys)
 
+    for key in unique_keys:
+        count = counts[key]
+        calories = food.foods[key]['calories'] * count
+        protein = food.foods[key]['protein']
+        carbs = food.foods[key]['carbs'] * count
+        fiber = food.foods[key]['fiber'] * count
+        fat = food.foods[key]['fat'] * count
+        cholesterol = food.foods[key]['cholesterol'] * count
+        calcium = food.foods[key]['calcium'] * count
+        iron = food.foods[key]['iron'] * count
+        magnesium = food.foods[key]['magnesium'] * count
+        sodium = food.foods[key]['sodium'] * count
+        zinc = food.foods[key]['zinc'] * count
+        vitamin_a = food.foods[key]['vitamin a'] * count
+        thiamine = food.foods[key]['thiamine'] * count
+        vitamin_e = food.foods[key]['vitamin e'] * count
+        riboflavin = food.foods[key]['riboflavin'] * count
+        niacin = food.foods[key]['niacin'] * count
+        vitamin_b6 = food.foods[key]['vitamin b6'] * count
+        vitamin_c = food.foods[key]['vitamin c'] * count
+        vitamin_b12 = food.foods[key]['vitamin b12'] * count
+        selenium = food.foods[key]['selenium'] * count
+        sugar = food.foods[key]['sugar'] * count
+        vitamin_d = food.foods[key]['vitamin d'] * count
+
+        c.execute(f'insert into test1 values ({calories}, {protein}, {carbs}, {fiber}, {fat}, {cholesterol}, {calcium}, {iron}, {magnesium}, {sodium}, {zinc}, {vitamin_a}, {thiamine}, {vitamin_e}, {riboflavin}, {niacin}, {vitamin_b6}, {vitamin_c}, {vitamin_b12}, {selenium}, {sugar}, {vitamin_d})')
+        print('Data inserted..')
+        print(data)
 
 #   Creates a new table within the main database using the current datetime.
 def create_table(db, data):
