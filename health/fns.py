@@ -4,45 +4,49 @@ import pandas as pd
 import food
 
 
-#   Returns index of selected item.
 def selected_item(box):
     for index in box.curselection():
         return index
 
 
-#   Inserts nutritional data from foods dict for every key into main db.
-def insert_data(new_items, data, db):
-    #   Connect.
+def insert_data(db, data):
     conn = sql.connect(db)
     c = conn.cursor()
 
-    #   Access the number of times each item occurs in new_list.
-    value_counts = pd.value_counts(new_items)
+    counts = pd.value_counts(data)
+    for key in data:
+        count = counts[key]
+        for nutrient in food.all_nuts:
+            data_to_add = food.foods[key][nutrient * count]
+            c.execute(f'insert into test1 values ({data_to_add})')
 
-    #   Get access to the numbers per key, and multiply each by their respective count.
-    
 
 #   Creates a new table within the main database using the current datetime.
-def create_table(new_items, data, db):
+def create_table(db, data):
     #   Check if one has already been created for that day.
     pass
 
-    #   Connect to main db. Create a new table using datetime as the table name.
+    #   Connect to main db.
     conn = sql.connect(db)
     c = conn.cursor()
+
+    #   Create a new table using datetime as the table name.
     c.execute('drop table if exists test1')
-    c.execute(f'create table test1 (calories int, protein int, carbs int, fiber int, fat int, cholesterol int, calcium int, iron int, magnesium int, sodium int, zinc int, vitamin_a int, thiamine int, vitamin_e int, riboflavin int, niacin int, vitamin_b6 int, vitamin_c int, vitamin_b12 int, selenium int, sugar int, vitamin_d int)')
+    c.execute(f'create table test1 (calories int, protein int, carbs int, fiber int, fat int, cholesterol int, '
+              f'calcium int, iron int, magnesium int, sodium int, zinc int, vitamin_a int, thiamine int, '
+              f'vitamin_e int, riboflavin int, niacin int, vitamin_b6 int, vitamin_c int, vitamin_b12 int, '
+              f'selenium int, sugar int, vitamin_d int)')
 
-    #   Populate the new table
-    insert_data(new_items, data, db)
+    #   Populate the new table.
+    insert_data(db, data)
 
 
-def add_item(new_items, menu, box, window, db):
+def add_item(new_items, items, box, window, db):
     #   Add selected item to items to add list
-    new_items.append(menu[selected_item(box)])
+    new_items.append(items[selected_item(box)])
 
     #   Create the menu frame.
-    choice_frame = tk.LabelFrame(window, text='Add meals...')
+    choice_frame = tk.LabelFrame(window, text='New Items')
     choice_frame.grid(row=1, column=1)
 
     #   create a new list box object and populate it using the appended list
@@ -53,16 +57,13 @@ def add_item(new_items, menu, box, window, db):
     for new_item in new_items:
         new_box.insert(tk.END, new_item)
 
-    print(new_items)
-
     #   After adding all items, create the table in db along with data.
-    create_button = tk.Button(text='CREATE', command=lambda: create_table(new_items, food.foods, db))
+    create_button = tk.Button(text='CREATE', command=lambda: create_table(db, new_items))
     create_button.grid(row=2, column=1)
 
 
 def reset(new_items):
     new_items.clear()
-    print('Items reset, cleared successfully')
 
 
 def step_two(choice, window, menu, new_items, db):
