@@ -17,5 +17,5 @@ print(sentiment)
 print(sentiment_proportions)
 
 ax = plt.axes()
-ax.pie(sentiment_proportions, labels=['negative', 'neutral', 'positive'])
+ax.pie(sentiment_proportions, labels=['negative', 'neutral', 'positive'], autopct='%1.1f%%')
 plt.show()
